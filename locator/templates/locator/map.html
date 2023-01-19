@@ -1,16 +1,17 @@
+{% extends 'locator/base.html' %}
 <!-- locator/templates/locators/map.html -->
-{% load static %}
+<!-- {% load static %} -->
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Google Map</title>
-        <link rel="stylesheet" type="text/css" href="./static/styles.css" />
-        <!--<script type="module" src="./map.js"></script> -->
-    </head>
-    <body>
-        <h3>MTG Event Locator</h3>
+{% block title %}
+    MTG Locator Map
+{% endblock %}
+
+{% block content %}
+
+<div class="clearfix">
+    <a class="btn btn-info left" href="{% url 'calendar' %}"> Calendar </a>
+</div>
+
         <div id="map"></div>
             <script>
                 function initMap() {
@@ -61,5 +62,74 @@
             </script>
             <script src="initMap.js" defer></script>
             <!--<script src="{% static 'map.js' %}"></script> -->
+
+{% endblock %}
+<!--
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Google Map</title>
+        <link rel="stylesheet" type="text/css" href="./static/styles.css" />
+        <!-<script type="module" src="./map.js"></script>-!->
+    </head>
+    <body>
+        <div class="clearfix">
+            <a class="btn btn-info left" href="{% url 'calendar' %}"> Calendar </a>
+        </div>
+
+        <h3>MTG Event Locator</h3>
+        <div id="map"></div>
+            <script>
+                function initMap() {
+                    const myLatLng = {lat: 50.95, lng: 8.77};
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        center: myLatLng,
+                        zoom: 6,
+                        mapId: "198c060214ce823", // You need to create your own map ID
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map:map,
+                        label: "A",
+                        title: "This Position is important!"
+                    });
+                    marker.setMap(map);
+
+                    var infoWindow = new google.maps.InfoWindow({
+                        content:"This is more information about this place</p>"
+                    });
+                    infoWindow.open(map, marker);
+
+                    featureLayer = map.getFeatureLayer("ADMINISTRATIVE_AREA_LEVEL_2");
+
+                    // Define the styling options
+                    const featureStyleOptions = {
+                        strokeColor: "#810FCB",
+                        strokeOpacity: 2.1,
+                        strokeWeight: 2.1,
+                        fillColor: "#810FCB",                      
+                        fillOpacity: 0.5,
+                    };
+
+                    // Apply the style to a single boundary.
+                    featureLayer.style = (options) => {
+                        //if (options.feature.placeId == "ChIJa76xwh5ymkcRW-WRjmtd6HU") {
+                        if (options.feature.placeId == "ChIJ5S-raZElv0cRoOwpSvxgJwM-WRjmtd6HU") { // Köln
+                        //if (options.feature.placeId == "ChIJ0zQtYiWsVHkRk8lRoB1RNPo") { // Hawai
+
+                        // Above Place ID is Switzerland
+                        return featureStyleOptions;
+                        }
+                    };
+                }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAIvdoPf_OfhGSnzWZMP6fja9Lib9y79kk&v=beta&callback=initMap&v=weekly&language=DE&region=DE"
+            </script>
+            <script src="initMap.js" defer></script>
+            <!-<script src="{% static 'map.js' %}"></script> -!->
     </body>
 </html>
+
+-->

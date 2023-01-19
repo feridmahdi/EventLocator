@@ -9,14 +9,17 @@ class Event(models.Model):
     description = models.TextField() #label='Event Beschreibung'
     start_time = models.DateTimeField() #initial=datetime.date.today
     end_time = models.DateTimeField()
-    image = models.ImageField(upload_to='images/',default='/media/images/default.jpg') # ,height_field=800,width_field=640
+    image = models.ImageField(upload_to='images/',default='/images/default.jpg') # ,height_field=800,width_field=640
     def __str__(self):
         return self.title
     
     @property
     def get_html_url(self):
+        #url = reverse('locator:event_edit', args=(self.id,))
+        #return f'<a href="{url}"> {self.title} </a>'
         url = reverse('event_edit', args=(self.id,))
-        return f'<p>{self.title}</p><a href="{url}">edit</a>'
+        return f'<a href="{url}">{self.title}</a>'
+        #return f'<p>{self.title}</p><a href="{url}">edit</a>'
 
 class Organizer(models.Model):
     name = models.CharField(max_length=100) # label='Organizer Name', 
@@ -25,11 +28,6 @@ class Organizer(models.Model):
     url = models.URLField() #label='Webseite', initial='http://'
     description = models.CharField(max_length=100) # label='Weitere Informationen zum Organizer'
     image = models.ImageField()
-
-    @property
-    def get_html_url(self):
-        url = reverse('event_edit', args=(self.id,))
-        return f'<p>{self.title}</p><a href="{url}">edit</a>'
 
 class Address(models.Model):
     street = models.CharField(max_length=100)

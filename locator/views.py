@@ -1,4 +1,5 @@
 # locator/views.py
+# https://www.huiwenteo.com/normal/2018/07/29/django-calendar-ii.html
 from datetime import datetime, date, timedelta
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -78,5 +79,5 @@ def event(request, event_id=None):
     form = EventForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('cal:calendar'))
-    return render(request, 'cal/event.html', {'form': form})
+        return HttpResponseRedirect(reverse('calendar'))
+    return render(request, 'locator/event.html', {'form': form})
