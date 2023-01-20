@@ -17,6 +17,11 @@ body {
 .next {
   float: right;
 }
+.map {
+  margin: 0px 50px;
+  text-align: center;
+  float: none;
+}
 .btn {
   outline: none;
   color: white;

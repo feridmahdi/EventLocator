@@ -1,5 +1,6 @@
-from django.forms import ModelForm, DateInput
+from django.forms import ModelForm, DateInput, CharField
 from locator.models import Event
+from .models import Search
 
 class EventForm(ModelForm):
   class Meta:
@@ -16,3 +17,12 @@ class EventForm(ModelForm):
     # input_formats parses HTML5 datetime-local input to datetime field
     self.fields['start_time'].input_formats = ('%Y-%m-%dT%H:%M',)
     self.fields['end_time'].input_formats = ('%Y-%m-%dT%H:%M',)
+    #label='Event Beschreibung'
+    
+
+class SearchForm(ModelForm):
+    address = CharField(label='')
+
+    class Meta:
+        model = Search
+        fields = ['address', ]

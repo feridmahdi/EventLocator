@@ -1,12 +1,9 @@
 <!-- locator/templates/locators/calendar.html -->
-
 {% extends 'locator/base.html' %}
 {% block content %}
-<div class="clearfix">
-	<a class="btn btn-info prev" href="{% url 'calendar' %}?{{ prev_month }}"> &#10094; Previous Month </a>
-	<a class="btn btn-info next" href="{% url 'calendar' %}?{{ next_month }}"> Next Month &#10095;</a>
-</div>
-
-{{ calendar }}
-
+	<div class="clearfix">
+		<a class="btn btn-info prev" href="{% url 'calendar' %}?{{ prev_month }}"> &#10094; Previous Month </a>
+		<a class="btn btn-info next" href="{% url 'calendar' %}?{{ next_month }}"> Next Month &#10095;</a>
+	</div>
+	{{ calendar }}
 {% endblock %}

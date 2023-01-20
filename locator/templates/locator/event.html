@@ -1,14 +1,9 @@
 {% extends 'locator/base.html' %}
 
 {% block title %}
-Event
 {% endblock %}
 
 {% block content %}
-<div class="clearfix">
-  <a class="btn btn-info left" href="{% url 'calendar' %}"> Calendar </a>
-  <a class="btn btn-info right" href="{% url 'map' %}"> Map </a>
-</div>
 
 {% if form.errors %}
     {% for field in form %}

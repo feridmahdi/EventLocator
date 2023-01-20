@@ -1,36 +1,59 @@
 # locator/views.py
-# https://www.huiwenteo.com/normal/2018/07/29/django-calendar-ii.html
+#Calender Impl https://www.huiwenteo.com/normal/2018/07/29/django-calendar-ii.html
+#Folium Impl: https://www.youtube.com/watch?v=2uFJ43DvhHg&t=434s
+#Packages: geocoder, folium, django, django-crispy-forms
+
 from datetime import datetime, date, timedelta
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.conf import settings
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from calendar import monthrange
+import folium, geocoder
+from django.contrib import messages
 
 from .models import *
+from .forms import EventForm , SearchForm
 from .utils import Calendar
-from .forms import EventForm
 
 def home(request):
-    return HttpResponse("Hello, Django!")
+    return render(request, 'locator/osmap.html')
 
-def hello_there(request, name):
-    return render(
-        request,
-        'locator/hello_there.html',
-        {
-            'name': name,
-            'date': datetime.now()
-        }
-    )
-
-def map_view(request):
-    context = {
-        "google_api_key": settings.GOOGLE_API_KEY,
+def osmap(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/osmap')
+    else:
+        form = SearchForm()
+    address = Search.objects.all().last()
+    location = geocoder.osm(address)
+    lat = location.lat
+    lng = location.lng
+    if lat == None or lng == None:
+        address.delete()
+        address = Search.objects.all().last()
+        location = geocoder.osm(address)
+        lat = location.lat
+        lng = location.lng
+        messages.warning(request, 'Invalid Address')
+    country = location.country
+    # Create Map Object
+    m = folium.Map(location=[50.95, 8.77], zoom_start = 6)
+    # Create a Marker
+    folium.Marker([lat, lng], tooltip='Search Loc', popup='search PopUp Text').add_to(m)
+    
+    folium.Marker([50.95, 8.77], tooltip='Hover Text', popup='PopUp Text').add_to(m)
+    # Get HTML Representation of Map Object
+    m = m._repr_html_()
+    context = {    
+        'm' : m,
+        'form': form,
     }
-    return render(request, 'locator/map.html', context)
+    return render(request, 'locator/osmap.html', context)
 
 
 class CalendarView(generic.ListView):

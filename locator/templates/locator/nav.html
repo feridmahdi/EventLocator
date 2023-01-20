@@ -1,0 +1,37 @@
+<div class="wrap">
+    {% load cache %}
+    {% cache 500 navbar%}
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand mx-2" href="">Event Locator</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'osmap' %}">Map<span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'calendar' %}">Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'event_new' %}">Event Submit</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Turnier Organisatoren
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Bottrop Series</a></li>
+                    <li><a class="dropdown-item" href="#">Et Cetera | Freising</a></li>
+                    <li><a class="dropdown-item" href="#">XPerion | Köln</a></li>
+                    <li><a class="dropdown-item" href="#">High 5 | Berlin</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% endcache %}
+</div>
