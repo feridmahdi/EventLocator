@@ -104,3 +104,13 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('calendar'))
     return render(request, 'locator/event.html', {'form': form})
+
+
+def eventView(request, event_id=None):
+    instance = Event()
+    if event_id:
+        instance = get_object_or_404(Event, pk=event_id)
+    else:
+        instance = Event()
+
+    return render(request, 'locator/eventView.html', {'event': instance})

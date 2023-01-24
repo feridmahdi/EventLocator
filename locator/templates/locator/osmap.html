@@ -2,20 +2,27 @@
 {% extends 'locator/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container">
-        <div class="row mt-2">
-            {% if message.tags %} class="{{message.tags}}"{% endif %}
-            <form class="form-inline my-2 my-lg-0" method="POST">
-                {% csrf_token %}
-                {{ form  }} <!-- | crispy -->
-                <!--<input class="form-control mr-sm-2" type "search" placeholder="Search" name="address" aria-label="Search">-->
-                <button class="btn btn-outline-success my-2 my-sm-0 mx-1" type="submit">Search</button>
-            </form>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-10 offset-md-1">
-                {{ m|safe }}
-            </div>
+<div style="width: 100%">
+    <div class="search.bar" style="text-align:center; margin-top:50px; margin-bottom:50px">
+        {% if message.tags %} class="{{message.tags}}"{% endif %}
+        <form class="form-inline my-2 my-lg-0" method="POST" name="citysearch" value="Deine Stadt">
+            {% csrf_token %}
+            {{ form  }} <!-- | crispy -->
+            <!--<input class="form-control mr-sm-2" type "search" placeholder="Search" name="address" aria-label="Search">-->
+            <button class="btn btn-outline-success my-2 my-sm-0 mx-1" type="submit">Search</button>
+        </form>
+    </div>
+    <div class="filter.col" style="width: 50%; float: left; display: inline-block; margin=5px 50px 5px">
+       Hierhin kommen die Filter Einstellungen
+    </div>
+    <div class="map.col" style="width: 50%; display: inline-block;">
+        <div class="col-md-10 offset-md-1">
+            {{ m|safe }}
         </div>
     </div>
+    <div class="event.scrollable" style="width:100%; text-align:center; margin-top:50px; margin-bottom:50px">
+        Komische Elemente Liste mit Events kommt hier unten hin die Scrollbar wird.
+    <div>
+</div>
+
 {% endblock %}

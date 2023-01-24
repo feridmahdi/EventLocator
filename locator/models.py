@@ -21,14 +21,18 @@ class Event(models.Model):
     maxTeilnehmer = models.PositiveIntegerField(default=24)
     description = models.TextField(default='Allgemeine Beschreibung,\nAnfahrt, Verpflegung, Händler,...\nErwartete Teilnehmer, Rundenzahl.\nProxy Regelung, Preise...') #label='Event Beschreibung'
     image = models.ImageField(upload_to='images/',default='/images/default.jpg') # ,height_field=800,width_field=640
+    
     def __str__(self):
         return self.title
+    
+    def getStartTime(self):
+        return str(self.start_time)
     
     @property
     def get_html_url(self):
         #url = reverse('locator:event_edit', args=(self.id,))
         #return f'<a href="{url}"> {self.title} </a>'
-        url = reverse('event_edit', args=(self.id,))
+        url = reverse('event_view', args=(self.id,))
         return f'<a href="{url}">{self.title}</a>'
         #return f'<p>{self.title}</p><a href="{url}">edit</a>'
 

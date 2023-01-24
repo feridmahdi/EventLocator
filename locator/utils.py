@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta
 from calendar import HTMLCalendar
 from .models import Event
-import googlemaps
 
 
 class Calendar(HTMLCalendar):
